@@ -42,6 +42,9 @@ function Get-Strings {
 	Get-Strings C:\WINDOWS\System32\notepad.exe -PlaceHolder '.'
 	
 	.EXAMPLE
+	Get-ChildItem C:\WINDOWS\*.dll -Recurse | ForEach-Object { Get-Strings $_ -MinimumLength 12 }
+	
+	.EXAMPLE
 	Get-Strings /usr/bin/mousepad -MinimumLength 8 -PlaceHolder '.' 
 	
 	.NOTES
