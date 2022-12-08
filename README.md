@@ -13,7 +13,7 @@
  
 ## DESCRIPTION
   "Strings" is a well-known, common command for *NIX systems. Since Windows does not include a version of this command, this function aims to recreate some of that functionality.
-  The function takes a `FilePath` as a mandatory argument and a MinimumLength (default 4) as an optional argument.
+  The function takes a `FilePath` as a mandatory argument and a `MinimumLength` (default 4) as an optional argument.
   By default, it will search for both ASCII and Unicode strings. An optional argument, `Encoding`, can be used to only search for one or the other.
   
   Check `Get-Help` for other arguments.
