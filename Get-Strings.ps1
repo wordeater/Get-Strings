@@ -57,6 +57,9 @@ function Get-Strings {
 	It also takes being called out when it makes an error much better than some real people.
 	
 	It has been tested on Windows 10, Windows Server 2019, and Kali Linux 2022.4
+	
+	.LINK
+	https://github.com/wordeater/Get-Strings
 	#>
 	
 	[CmdletBinding()]
