@@ -101,5 +101,8 @@ PS > Get-Strings C:\WINDOWS\System32\notepad.exe -StripNonPrintable 0
 PS > Get-Strings C:\WINDOWS\System32\notepad.exe -PlaceHolder '.'
 
 -------------------------- EXAMPLE 5 --------------------------
+PS > Get-ChildItem C:\WINDOWS\*.dll -Recurse | ForEach-Object { Get-Strings $_ -MinimumLength 12 }
+
+-------------------------- EXAMPLE 6 --------------------------
 PS > Get-Strings /usr/bin/mousepad -MinimumLength 8 -PlaceHolder '.' 
 ```
