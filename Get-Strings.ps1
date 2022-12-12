@@ -82,17 +82,14 @@ function Get-Strings {
         [UInt32][ValidateRange(0, [Int32]::MaxValue)]
         $MinimumLength = 4,
 		
-		[System.Boolean]
-		$StripNonPrintable=$true,
+	[System.Boolean]
+	$StripNonPrintable=$true,
 		
-		[String]
-		$PlaceHolder=''
+	[String]
+	$PlaceHolder=''
     )
 	
 	Begin {
-		# Initialize the output table
-		$OutputTable = @()
-		
 		# Don't strip non-printable characters if a placeholder value is specified
 		if ( $PlaceHolder -ne '' ) { $StripNonPrintable = $false; }
 	}
@@ -103,23 +100,20 @@ function Get-Strings {
 			$strings = Select-String $FilePath -Pattern "[\x20-\x7E]{$MinimumLength,}"
 			if ( $PlaceHolder -ne '' ) { $strings = $strings | % { $_ -replace "[^\x20-\x7E]+",$PlaceHolder } }
 			if ( $StripNonPrintable ) { $strings = $strings | % { $_ -replace "[^\x20-\x7E]+" } }
-			$OutputTable = $OutputTable + '---------- BEGIN ASCII STRINGS ----------'
-			$OutputTable = $OutputTable + $strings
-			$OutputTable = $OutputTable + '---------- END ASCII STRINGS ----------'
+			Write-Verbose '---------- BEGIN ASCII STRINGS ----------'
+			$strings
+			Write-Verbose '---------- END ASCII STRINGS ----------'
 		}
 		if ($Encoding -eq 'Unicode' -or $Encoding -eq 'Default') {		
 			$strings = Select-String $FilePath -Pattern "[\u0020-\u007E]{$MinimumLength,}"
 			#$strings = Select-String $FilePath -Pattern "\p{L}{$MinimumLength,}"
 			if ( $PlaceHolder -ne '' ) { $strings = $strings | % { $_ -replace "[^\x20-\x7E]+",$PlaceHolder } }
 			if ( $StripNonPrintable ) { $strings = $strings | % { $_ -replace "[^\x20-\x7E]+" } }
-			$OutputTable = $OutputTable + '---------- BEGIN UNICODE STRINGS ----------'
-			$OutputTable = $OutputTable + $strings
-			$OutputTable = $OutputTable + '---------- END UNICODE STRINGS ----------'
+			Write-Verbose '---------- BEGIN UNICODE STRINGS ----------'
+			$strings
+			Write-Verbose '---------- END UNICODE STRINGS ----------'
 		}		
 	}
 	
-	End {
-		# Output the strings that were found
-		$OutputTable
-	}
+	End { }
 }
