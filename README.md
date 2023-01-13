@@ -1,15 +1,15 @@
 # Get-Strings
-  A PowerShell version of the 'strings' command
+  A PowerShell version of the `strings` command
 
 ## NAME
-  Get-Strings
+  `Get-Strings`
     
 ## SYNOPSIS
   Searches the contents of a file object and displays discovered strings of printable characters.
   Non-printable characters are stripped from the output by default.
   
 ## SYNTAX
-  `Get-Strings [-FilePath] <String[]> [-Encoding <String>] [-MinimumLength <UInt32>] [-StripNonPrintable <Boolean>] [-PlaceHolder <String>] [<CommonParameters>]`
+  `Get-Strings [-FilePath] <String[]> [-Encoding <String>] [-MinimumLength <UInt32>] [-ShowNonPrintable] [-NonPrintablePlaceHolder <String>] [<CommonParameters>]`
  
 ## DESCRIPTION
   "Strings" is a well-known, common command for *NIX systems. Since Windows does not include a version of this command, this function aims to recreate some of that functionality.
@@ -48,23 +48,23 @@
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
--StripNonPrintable <Boolean>
+-ShowNonPrintable [<SwitchParameter>]
     By default, the function strips non-printable characters from the output. By enabling this, those characters will be included.
-    Not recommended when displaying output as STDOUT.
-
+    Not recommended when displaying output as STDOUT uhles combined with NonPrintablePlaceHolder.
+    
     Required?                    false
     Position?                    named
-    Default value                True
+    Default value                False
     Accept pipeline input?       false
     Accept wildcard characters?  false
-
--PlaceHolder <String>
+        
+-NonPrintablePlaceHolder <String>
     This value lets you substitute any other character for non-printable characters in the output.
-    If any value is specified, StripNonPrintable is automatically set to false.
-
+    If any value is specified, ShowNonPrintable is implicitly set to true.
+    
     Required?                    false
     Position?                    named
-    Default value
+    Default value                
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
@@ -88,21 +88,21 @@
   
   ## EXAMPLES
   ```
-  -------------------------- EXAMPLE 1 --------------------------
+-------------------------- EXAMPLE 1 --------------------------
 PS > Get-Strings C:\WINDOWS\System32\notepad.exe
 
 -------------------------- EXAMPLE 2 --------------------------
-PS > Get-Strings -FilePath C:\WINDOWS\System32\notepad.exe -MinimumLength 8 -Encoding Unicode
+PS > Get-Strings -FilePath C:\WINDOWS\System32\notepad.exe -MinimumLength -Encoding Unicode
 
 -------------------------- EXAMPLE 3 --------------------------
-PS > Get-Strings C:\WINDOWS\System32\notepad.exe -StripNonPrintable 0
+PS > Get-Strings /usr/bin/attr -NonPrintablePlaceHolder '.' -Encoding Ascii -Verbose
 
 -------------------------- EXAMPLE 4 --------------------------
 PS > Get-Strings C:\WINDOWS\System32\notepad.exe -PlaceHolder '.'
 
 -------------------------- EXAMPLE 5 --------------------------
-PS > Get-ChildItem C:\WINDOWS\*.dll -Recurse | ForEach-Object { Get-Strings $_ -MinimumLength 12 }
+PS > Get-Strings /usr/bin/mousepad -MinimumLength 8 -ShowNonPrintable | Out-File .\mousepad-strings.txt
 
 -------------------------- EXAMPLE 6 --------------------------
-PS > Get-Strings /usr/bin/mousepad -MinimumLength 8 -PlaceHolder '.' 
+PS > Get-ChildItem C:\WINDOWS\*.dll -Recurse | ForEach-Object { Get-Strings $_ -MinimumLength 12 }
 ```
