@@ -24,7 +24,7 @@
     Absolute or relative path to the object to be searched.
 
     Required?                    true
-    Position?                    2
+    Position?                    1
     Default value
     Accept pipeline input?       true (ByPropertyName)
     Accept wildcard characters?  false
